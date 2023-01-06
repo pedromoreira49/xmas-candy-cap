@@ -12,6 +12,6 @@
     "vite": "^4.0.0"
   },
   "dependencies": {
-    "netlify-cli": "^12.4.0"
+    "netlify-cli": "^12.5.0"
   }
 }

@@ -7,7 +7,7 @@ import Candy from './candy.js'
 
 //Constantes
 const frames = 60
-const totalEnemies = 7
+const totalEnemies = 8
 
 //Alternaveis
 let canvas
@@ -22,6 +22,7 @@ let background
 let candySound
 let gameOverSound
 let gameSound
+let inimigo
 
 
 //Jogador e Inimigo
@@ -41,7 +42,7 @@ const init = async () => {
     console.log(player.x)
     //render background
     background = await imageLoad('/sprites/background-florest.png')
-    
+    inimigo = await imageLoad('/sprites/enemy-sprite.png')
     //render sounds
     candySound = await soundLoad('/sounds/candy-cap.mp3')
     candySound.volume = .6
@@ -60,9 +61,10 @@ const init = async () => {
         new Enemy(
             Math.random() * limits.width,
             30, 20,
-            Math.random() * limits.height,
+            Math.floor(Math.random() * (6 - 3)) + 3,
             60, 66,
-            '/sprites/enemy-sprite.png', frames
+            inimigo,
+            frames
         )
     )
     keyPress(window)
@@ -76,11 +78,11 @@ const loopAnimation = () => {
         player.move(limits, key)
         player.draw(context)
 
-        candy.draw(context)
+        candy.draw(context) 
 
         enemies.forEach(enemy => {
-            enemy.move(limits)
             enemy.draw(context)
+            enemy.move(limits)
             gameOver = !gameOver ? enemy.colision(player.hurtbox) : true
         })
 

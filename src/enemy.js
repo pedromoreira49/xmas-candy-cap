@@ -4,14 +4,11 @@ import { imageLoad } from './loaders/imageLoad.js'
 export default class Enemy extends Circle{
     constructor(x, y, size, speed = 10, width, height, imgUrl, frames){
         super(x, y, size, speed)
-        this.imgUrl = imgUrl
-        imageLoad(this.imgUrl).then(img => {
-            this.img = img
-            this.cellWidth = img.naturalWidth / this.totalSprites
-        })
+        this.img = imgUrl
+        this.totalSprites = 3
+        this.cellWidth = imgUrl.naturalWidth / this.totalSprites
         this.cellHeight = 30
         this.cellX = 0
-        this.totalSprites = 3
         this.enemySpeed = 1
         this.width = width
         this.height = height
@@ -38,8 +35,8 @@ export default class Enemy extends Circle{
             this.cellHeight,
             this.x,
             this.y,
-            this.width,
-            this.height
+            this.size * 4,
+            this.size * 4
         )
         this.hurtbox.drawCircle(context)
     }
@@ -57,6 +54,7 @@ export default class Enemy extends Circle{
             this.hurtbox.x = this.x + this.width / 2
             this.hurtbox.y = 30 + this.height / 2
             this.speed = Math.floor(Math.random() * (6 - 3)) + 3
+            console.trace(this.speed)
         }
     }
 }
